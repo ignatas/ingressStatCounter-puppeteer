@@ -1,0 +1,25 @@
+{
+  "name": "ingressstatcounter-puppeteer",
+  "version": "1.0.0",
+  "description": "puppeteer",
+  "main": "readme.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github/ignatas/ist-puppeteer"
+  },
+  "keywords": [
+    "ingress",
+    "autotest",
+    "puppeteer"
+  ],
+  "author": "Ignatas",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "jest-puppeteer": "^4.3.0",
+    "puppeteer": "^2.0.0"
+  }
+}
