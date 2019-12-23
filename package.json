@@ -18,9 +18,9 @@
   "author": "Ignatas",
   "license": "ISC",
   "devDependencies": {
-    "chance": "^1.0.18",
+    "chance": "^1.1.4",
     "jest": "^24.9.0",
-    "jest-puppeteer": "^4.3.0",
+    "jest-puppeteer": "^4.4.0",
     "puppeteer": "^2.0.0"
   }
 }
