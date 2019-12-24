@@ -69,12 +69,39 @@ const users = [
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto('https://aliaksandr-kasko.outsystemscloud.com/AgentProfileStats/', { waitUntil: 'networkidle2' });
+
     await page.click('a[href="Register.aspx?(Not.Licensed.For.Production)="]');
     await page.waitForXPath('//div[contains(., "User Registration")]')
     await page.screenshot({ path: `screenshots/002-sign up link avaiable+${Date.now().toString()}.png` });
+
     await page.close();
     console.log(`case #: "sign up link avaiable" is finished`);
 
+    await browser.close();
+})();
+
+(async () => {
+
+    const browser = await puppeteer.launch({
+        headless: true
+        // headless: false,
+        // slowMo: 5
+    });
+    const context = await browser.createIncognitoBrowserContext();
+
+    const page = await context.newPage();
+    await page.setViewport({ width: 1920, height: 1080 });
+
+    await page.goto('https://aliaksandr-kasko.outsystemscloud.com/AgentProfileStats/', { waitUntil: 'networkidle2' });
+
+    await page.click('input[type="submit"]');
+    await page.waitForXPath('//span[contains(., "Required field!")]');
+    const validation = await page.$x('//span[contains(., "Required field!")]');
+    await page.screenshot({ path: `screenshots/002-login with empty credentials+${Date.now().toString()}.png` });
+    if (validation.length !== 2) { console.log('case #: "login with empty credentials" is failed') }
+
+    await page.close();
+    console.log(`case #: "login with empty credentials" is finished`);
 
     await browser.close();
 })();
