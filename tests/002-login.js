@@ -1,20 +1,20 @@
 const puppeteer = require('puppeteer');
-
+// cases for validation
 const users = [
     {
-        case: "invalid_name",
+        case: "login with invalid name",
         username: "' or 1=1--",
         password: "ggggggggg",
         isPositive: false
     },
     {
-        case: "invalid_password",
+        case: "login with invalid password",
         username: "ggggggggg",
         password: "' or 1=1--",
         isPositive: false
     },
     {
-        case: "positive_login",
+        case: "positive login",
         username: "ggggggggg",
         password: "ggggggggg",
         isPositive: true
@@ -24,18 +24,18 @@ const users = [
 (async () => {
 
     const browser = await puppeteer.launch({
-        headless: false,
-        slowMo: 5
+        headless: true
+        // headless: false,
+        // slowMo: 5
     });
     const context = await browser.createIncognitoBrowserContext();
 
     for (let index = 0; index < users.length; index++) {
         let user = users[index];
+
         const page = await context.newPage();
-        await page.setViewport({
-            width: 1920,
-            height: 1080
-        });
+        await page.setViewport({ width: 1920, height: 1080 });
+
         await page.goto('https://aliaksandr-kasko.outsystemscloud.com/AgentProfileStats/', { waitUntil: 'networkidle2' });
         await page.type('input[type="text"]', user.username);
         await page.type('input[type="password"]', user.password);
@@ -43,10 +43,10 @@ const users = [
 
         if (user.isPositive) {
             await page.waitForXPath(`//a[@title="Agent Profile" and contains(., ${user.name})]`);
-            await page.screenshot({ path: `screenshots/screenshot-${user.case}.png` });
+            await page.screenshot({ path: `screenshots/002-${user.case}+${Date.now().toString()}.png` });
         }
         else {
-            await page.screenshot({ path: `screenshots/screenshot-${user.case}.png` });
+            await page.screenshot({ path: `screenshots/002-${user.case}+${Date.now().toString()}.png` });
         }
 
         await page.close();
