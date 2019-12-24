@@ -3,14 +3,14 @@ const puppeteer = require('puppeteer');
 const users = [
     {
         case: "invalid_name",
-        username: "anyinvalid",
-        password: "anyinvalid",
+        username: "' or 1=1--",
+        password: "ggggggggg",
         isPositive: false
     },
     {
         case: "invalid_password",
-        username: "' or '1'='1",
-        password: "anyinvalid",
+        username: "ggggggggg",
+        password: "' or 1=1--",
         isPositive: false
     },
     {
@@ -37,12 +37,6 @@ const users = [
             height: 1080
         });
         await page.goto('https://aliaksandr-kasko.outsystemscloud.com/AgentProfileStats/', { waitUntil: 'networkidle2' });
-
-        //const username = await page.$x('//label[contains(text(), "Username")]/..//input[@type="text"]')
-        //console.log(username)
-        //await page.focus(usernameclear)
-        //await username.click()
-        //await page.waitForXPath('//span[contains(., "Invalid username or password.")]')
         await page.type('input[type="text"]', user.username);
         await page.type('input[type="password"]', user.password);
         await page.click('input[type="submit"]');
@@ -56,7 +50,7 @@ const users = [
         }
 
         await page.close();
-        console.log(`case # ${index + 1} passed`)
+        console.log(`case #${index + 1}: "${user.case}" is finished`);
     }
 
     await browser.close();
